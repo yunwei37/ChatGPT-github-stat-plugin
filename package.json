@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@octokit/rest": "^19.0.11",
     "@types/cors": "^2.8.13",
     "@types/node": "18.15.11",
     "@types/react": "18.0.34",

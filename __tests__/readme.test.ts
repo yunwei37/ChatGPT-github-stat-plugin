@@ -2,7 +2,6 @@ import { getRepoReadme } from '../lib/getRepoReadme';
 
 describe('getRepoReadme', () => {
   it('returns the README data for a valid repo', async () => {
-    const readmeContent = '# This is a test README';
 
     const readmeData = await getRepoReadme('yunwei37', 'Eunomia');
     console.log(readmeData);

@@ -25,7 +25,7 @@ npm start
 
 3. Set up your GPT Plugin in the ChatGPT Plugin UI.
 
-When prompted for your website domain, type in 'http://localhost:3000'
+When prompted for your website domain, type in 'https://chat-gpt-github-stat-plugin.vercel.app'
 
 ### Usage
 

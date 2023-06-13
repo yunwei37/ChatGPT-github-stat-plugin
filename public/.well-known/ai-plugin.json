@@ -9,10 +9,10 @@
   },
   "api": {
     "type": "openapi",
-    "url": "http://localhost:3000/openapi.yaml",
+    "url": "https://chat-gpt-github-stat-plugin.vercel.app/openapi.yaml",
     "is_user_authenticated": false
   },
-  "logo_url": "http://localhost:3000/logo.png",
+  "logo_url": "https://chat-gpt-github-stat-plugin.vercel.app/logo.png",
   "contact_email": "support@example.com",
   "legal_info_url": "https://example.com/legal"
 }

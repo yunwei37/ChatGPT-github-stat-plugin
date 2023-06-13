@@ -4,7 +4,7 @@ info:
   description: A plugin that allows the user to create and manage a TODO list using ChatGPT.
   version: 'v1'
 servers:
-  - url: http://localhost:3000
+  - url: https://chat-gpt-github-stat-plugin.vercel.app
 paths:
   /api/todos:
     get:

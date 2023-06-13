@@ -24,7 +24,6 @@ class StargazerLoader {
   async loadStargazers(
     username: string,
     repo: string,
-    forecastProps: ForecastProps | null,
   ): Promise<StargazerResult | null> {
     const stargazerData = await GitHubDataLoader.fetchStargazers(
       username,

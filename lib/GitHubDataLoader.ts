@@ -2,6 +2,7 @@ import { Octokit } from "@octokit/rest";
 
 const GITHUB_API_URL = "https://api.github.com/repos/{user}/{repo}/stargazers?per_page=100&page={page}";
 const MAX_PAGES_WITHOUT_TOKEN = 30;
+const batchSize = 5;
 
 let progressHandler = (progress: number) => {
   console.log(`Progress: ${progress}%`);
@@ -64,9 +65,6 @@ class GitHubDataLoader {
       progressHandler((1 / totalPages) * 100);
       let currentPage = 2;
       while (currentPage <= totalPages) {
-        if (shouldStop()) {
-          return null;
-        }
         const currentBatchSize = Math.min(currentPage + batchSize, totalPages + 1) - currentPage;
         const pages = await Promise.all(
           GitHubDataLoader.generateRange(currentBatchSize, currentPage).map((num) =>
@@ -81,7 +79,7 @@ class GitHubDataLoader {
       }
 
       return starData;
-    } catch (error) {
+    } catch (error: any) {
       console.log("error: " + error);
       if (error.response === undefined) {
         throw error;

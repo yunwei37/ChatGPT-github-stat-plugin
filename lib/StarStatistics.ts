@@ -1,5 +1,3 @@
-import lsq from "least-squares";
-
 interface StarData {
   date: string;
   count: number;
@@ -28,7 +26,7 @@ class StarStatistics {
     return starData;
   }
 
-  private calculateStatistics(starData: StarData[]): any {
+  public calculateStatistics(starData: StarData[]): any {
     if (starData.length === 0) {
       return {
         "Total stars": 0,

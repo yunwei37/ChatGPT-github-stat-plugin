@@ -33,7 +33,6 @@ class StargazerLoader {
     if (stargazerData === null) {
       return null;
     }
-    StargazerLoader.colorIndex = StargazerLoader.colorIndex + 1;
     return {
       username: username,
       repo: repo,

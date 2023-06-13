@@ -8,6 +8,7 @@ servers:
 paths:
   /api/github/{owner}:
     get:
+      operationId: getGithubUser
       summary: "Get GitHub user information"
       description: "Retrieve statistics and information for a GitHub user."
       parameters:
@@ -26,6 +27,7 @@ paths:
                 $ref: "#/components/schemas/User"
   /api/github/{owner}/{repo}:
     get:
+      operationId: getGithubRepo
       summary: "Get GitHub repository information"
       description: "Retrieve statistics and information for a specific GitHub repository."
       parameters:

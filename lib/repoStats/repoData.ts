@@ -43,7 +43,7 @@ export default async function generateRepoStats(owner: string, repo: string) {
   }
 
   // Get the 20%, 40%, 60%, 80% and 100% data
-  const stargazerData = getPercentiles(stargazerDataFull.stargazerData, [20, 40, 60, 80, 100]);
+  const stargazerData = getPercentiles(stargazerDataFull.stargazerData, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
 
   // Create a new object with only the fields you need.
   return {

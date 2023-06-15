@@ -74,8 +74,11 @@ class GitHubDataLoader {
         for (let i = 0; i < currentBatchSize; i++) {
           starCount = this.appendStarData(starData, starCount, pages[i]);
         }
-        currentPage += currentBatchSize;
-          progressHandler(((currentPage - 1) / totalPages) * 100);
+        const sktippedPages = Math.floor(totalPages / 50.0);
+        // for large repos, make the request smaller
+        currentPage += (1 + sktippedPages) * currentBatchSize;
+        progressHandler(((currentPage - 1) / totalPages) * 100);
+        starCount += Math.floor(100 * currentBatchSize * sktippedPages);
       }
 
       return starData;

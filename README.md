@@ -75,7 +75,7 @@ Here are the same use cases expressed in more natural language:
 
     ![star-history](public/history.png)
 
-    and charts:
+    and charts(plugin for this example: **Charts by Kesem AI**):
 
     ![star-history](public/history-chart.png)
 

@@ -5,10 +5,12 @@ ChatGPT plugin to help you get insight to Github Repos and Users
 
 1. Run the server
 
+set the env `REACT_APP_GITHUB_ACCESS_TOKEN` as your github token and run the server:
+
 ```sh
+export REACT_APP_GITHUB_ACCESS_TOKEN=<your github token>
 npm run build
 npm start
-
 # If you run this in dev mode, the memory may not persist well as the server will randomly restart sometimes
 ```
 

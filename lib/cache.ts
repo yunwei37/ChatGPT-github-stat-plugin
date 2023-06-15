@@ -7,7 +7,7 @@ class StatCache<T> {
     private data: Record<string, CacheEntry<T>>;
     private maxAge: number;
 
-    constructor(maxAge = 300000) {  // Default to 5 minutes
+    constructor(maxAge = 3000000) {  // Default to 50 minutes
         this.data = {};
         this.maxAge = maxAge;
     }
@@ -18,9 +18,10 @@ class StatCache<T> {
         if (!entry) {
             return null;
         }
-
+        console.log(`Getting ${key} from cache...`);
         if (Date.now() - entry.timestamp > this.maxAge) {
             delete this.data[key];
+            console.log(`Cache entry for ${key} expired.`)
             return null;
         }
 
@@ -28,9 +29,15 @@ class StatCache<T> {
     }
 
     set(key: string, value: T): void {
+        console.log(`Setting ${key} in cache...`);
         this.data[key] = {
             timestamp: Date.now(),
             data: value,
         };
     }
 }
+
+const userCache = new StatCache<userStats>()
+const repoCache = new StatCache<StargazerResult>()
+
+export { userCache, repoCache }

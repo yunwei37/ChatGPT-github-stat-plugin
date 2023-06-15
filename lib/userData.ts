@@ -28,13 +28,14 @@ interface UserStats {
     error: string;
 }
 
+import { userCache } from './cache';
 import { fetchStats } from './statsFetcher';
 
 export default async function generateUserStats(owner: string): Promise<UserStats> {
     // get the owner's GitHub stats
     const response = await fetch(`https://api.github.com/users/${owner}`);
     if (!response.ok) {
-        throw new Error(`GitHub API returned ${response.status} for user ${owner}: ${await response.json()}`);
+        throw new Error(`GitHub API returned ${response.status} for user ${owner}: ${JSON.stringify(await response.json())}`);
     }
     const data = await response.json();
     // calculate the owner's more GitHub stats
@@ -43,7 +44,14 @@ export default async function generateUserStats(owner: string): Promise<UserStat
         ...data,
     };
     try {
-        const stats = await fetchStats(owner);
+          // use the repoCache here
+        let stats: userStats;
+        let cacheRes = userCache.get(owner);
+        if (cacheRes) {
+            stats = cacheRes;
+        } else {
+            stats = await fetchStats(owner);
+        }
         // if stats are string, the full data only contains the error message for stats
         // merge the data and stats
         fullData = {
@@ -51,7 +59,7 @@ export default async function generateUserStats(owner: string): Promise<UserStat
             ...stats
         };
         console.log(`Stats for ${owner} fetched!`);
-
+        userCache.set(owner, stats);
     } catch (error) {
         console.log(`Error fetching stats for ${owner}: ${error}`);
         fullData = {

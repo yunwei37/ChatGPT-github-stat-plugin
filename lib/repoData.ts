@@ -1,4 +1,5 @@
 import StargazerLoader from './StargazerLoader';
+import { repoCache } from './cache';
 import { getRepoReadme } from './getRepoReadme';
 
 function getPercentiles(data: any[], percentiles: number[]): any[] {
@@ -28,9 +29,17 @@ export default async function generateRepoStats(owner: string, repo: string) {
   }
   const data = await response.json();
   const readmeData = await getRepoReadme(owner, repo);
-  const stargazerDataFull = await StargazerLoader.loadStargazers(owner, repo);
-  if (!stargazerDataFull) {
-    throw new Error(`No stargazer data found for user ${owner} repo ${repo}`);
+
+  let stargazerDataFull;
+  const cacheStarData = repoCache.get(`${owner}/${repo}`);
+  if (cacheStarData) {
+    stargazerDataFull = cacheStarData;
+  } else {
+    stargazerDataFull = await StargazerLoader.loadStargazers(owner, repo);
+    if (!stargazerDataFull) {
+      throw new Error(`No stargazer data found for user ${owner} repo ${repo}`);
+    }
+    repoCache.set(`${owner}/${repo}`, stargazerDataFull);
   }
 
   // Get the 20%, 40%, 60%, 80% and 100% data

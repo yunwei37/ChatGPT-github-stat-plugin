@@ -2,18 +2,6 @@
 import GitHubDataLoader from "./GitHubDataLoader";
 import StarStatistics from "./StarStatistics";
 
-interface StargazerData {
-  date: string;
-  count: number;
-}
-
-interface StargazerResult {
-  username: string;
-  repo: string;
-  stargazerData: StargazerData[];
-  stats: any; // you should replace this with the actual type
-}
-
 class StargazerLoader {
   async loadStargazers(
     username: string,

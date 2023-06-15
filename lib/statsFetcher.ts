@@ -1,3 +1,4 @@
+import { userCache } from './cache';
 import {calculateRank} from './calculateRank';
 
 const GRAPHQL_REPOS_FIELD = `
@@ -105,21 +106,10 @@ const statsFetcher = async (username: string) => {
   return stats;
 };
 
-interface Stats {
-  name: string;
-  totalPRs: number;
-  totalCommits: number;
-  totalIssues: number;
-  totalStars: number;
-  contributedTo: number;
-  rank: { level: string; percentile: number };
-  mostStarredRepos?: string[];
-}
-
-const fetchStats = async (username: string): Promise<Stats> => {
+const fetchStats = async (username: string): Promise<userStats> => {
   if (!username) throw new Error("Username is required");
 
-  const stats: Stats = {
+  const stats: userStats = {
     name: "",
     totalPRs: 0,
     totalCommits: 0,

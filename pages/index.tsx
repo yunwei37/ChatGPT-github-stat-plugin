@@ -34,53 +34,60 @@ function Home() {
         const data: ApiResponse = await response.json();
         setResult(data);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching data:', error);
-      setResult({ error: 'Error fetching data' + error });
+      setResult({ error: 'Error fetching data: ' + error.message });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Container className="my-4">
-      <h1 className="mb-4">ChatGPT Github Stat Plugin</h1>
+    <Container className="my-4" style={{ fontFamily: 'Arial, sans-serif' }}>
+      <h1 className="mb-4" style={{ color: '#333', textAlign: 'center' }}>ChatGPT Github Stat Plugin</h1>
+      <p style={{ fontSize: '1.2em', lineHeight: '1.6', color: '#666' }}>
+        This plugin is designed to provide insights into GitHub repositories and users. Whether you are a developer looking for detailed statistics about a repository, or a project manager comparing the growth of different repositories, this plugin has got you covered.
+        <a href="https://github.com/yunwei37/ChatGPT-github-stat-plugin" style={{ color: '#007bff' }}>Source Code</a>
+      </p>
 
-      <Card className="mb-4">
+      <Card className="mb-4 shadow">
         <Card.Body>
           <Form onSubmit={handleUserSubmit}>
-            <h2>User Info</h2>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter GitHub username..." 
-              value={user} 
-              onChange={(e) => setUser(e.target.value)} 
+            <h2 className="mb-3" style={{ color: '#333' }}>User Info</h2>
+            <Form.Control
+              type="text"
+              placeholder="Enter GitHub username... (e.g., torvalds, gaearon, yunwei37, Significant-Gravitas, microsoft)"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+              style={{ borderRadius: '0.25rem' }}
             />
-            <Button className="mt-3" variant="primary" type="submit" disabled={loading}>
+            <Button className="mt-3" variant="primary" type="submit" disabled={loading} style={{ borderRadius: '0.25rem' }}>
               {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
             </Button>
           </Form>
         </Card.Body>
       </Card>
 
-      <Card className="mb-4">
+      <Card className="mb-4 shadow">
         <Card.Body>
           <Form onSubmit={handleRepoSubmit}>
-            <h2>Repo Info</h2>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter owner's username..." 
-              value={owner} 
-              onChange={(e) => setOwner(e.target.value)} 
+            <h2 className="mb-3" style={{ color: '#333' }}>Repo Info</h2>
+            <Form.Control
+              type="text"
+              placeholder="Enter owner's username... (e.g., torvalds, gaearon, yunwei37, Significant-Gravitas, microsoft)"
+              value={owner}
+              onChange={(e) => setOwner(e.target.value)}
+              style={{ borderRadius: '0.25rem' }}
             />
-            <Form.Control 
+            <Form.Control
               className="mt-3"
-              type="text" 
-              placeholder="Enter repo name..." 
-              value={repo} 
-              onChange={(e) => setRepo(e.target.value)} 
+              type="text"
+              placeholder="Enter repo name... (e.g., linux, react, ZJU-CS-GIS-ClassNotes, Auto-GPT, TypeScript)"
+              value={repo}
+              onChange={(e) => setRepo(e.target.value)}
+              style={{ borderRadius: '0.25rem' }}
             />
-            <Button className="mt-3" variant="primary" type="submit" disabled={loading}>
+            <Button className="mt-3" variant="primary" type="submit" disabled={loading} style={{ borderRadius: '0.25rem' }}>
               {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
             </Button>
           </Form>

@@ -1,6 +1,6 @@
 {
     "schema_version": "v1",
-    "name_for_human": "Github User and Repo Stats",
+    "name_for_human": "Github Stats",
     "name_for_model": "githubUserRepoStats",
     "description_for_human": "Dynamically generate and analyze a wide range of stats and history for Github repos and users.",
     "description_for_model": "Manages the retrieval of comprehensive statistics and information about GitHub repositories or users. It provides capabilities such as generating and fetching detailed repository data, user data, community data, star history, and other relevant Github statistics.",

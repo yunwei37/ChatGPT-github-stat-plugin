@@ -12,44 +12,6 @@ A powerful GPT plugin designed to provide insights into GitHub repositories and 
 - **Growth Tracking**: Track the growth of a repository over time and visualize it using the charts plugin.
 - **User Activity Analysis**: Analyze the activity of a GitHub user over time.
 
-## Usage
-
-Here are some examples of how you can use the ChatGPT GitHub Stat Plugin:
-
-- **Getting information about a repository**
-
-  ```
-  Can you tell me the statistics for the https://github.com/Significant-Gravitas/Auto-GPT? Should I use it in my project? Tell me your analysis.
-  ```
-
-- **Getting information about a user**
-
-  ```
-  Can you show me how the activity of the GitHub user 'torvalds'? Tell me about him now.
-  ```
-
-- **Comparing two repositories**
-
-  ```
-  Can you compare the 'react' repository from 'facebook' and the 'angular.js' repository from 'angular' on GitHub? Use charts to compare them, and give me a report.
-  ```
-
-- **Tracking the growth of a repository**
-
-  ```
-  Can you read the star history and stats of https://github.com/eunomia-bpf/wasm-bpf, analyze the result, and build charts for the star history and the statistics?
-  ```
-
-- **Analyzing the activity of a user**
-
-  ```
-  Tell me about https://github.com/Himself65 and analyze his repo. What does the activity of him over time look like?
-  ```
-
-## Contributing
-
-We welcome contributions from the community. If you'd like to contribute, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
-
 ## Usage and Examples
 
 Here are the same use cases expressed in more natural language:
@@ -143,6 +105,10 @@ Here are the same use cases expressed in more natural language:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+We welcome contributions from the community. If you'd like to contribute, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
 
 ## Support
 

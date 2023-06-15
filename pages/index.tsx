@@ -1,4 +1,6 @@
 import React, { useState, FormEvent } from 'react';
+import { Container, Form, Button, Spinner, Card } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 type ApiResponse = Record<string, unknown> | null;
 
@@ -41,43 +43,58 @@ function Home() {
   };
 
   return (
-    <div className="App">
-      <h1>ChatGPT Github Stat Plugin</h1>
+    <Container className="my-4">
+      <h1 className="mb-4">ChatGPT Github Stat Plugin</h1>
 
-      <form onSubmit={handleUserSubmit}>
-        <h2>User Info</h2>
-        <input 
-          type="text" 
-          placeholder="Enter GitHub username..." 
-          value={user} 
-          onChange={(e) => setUser(e.target.value)} 
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Submit'}
-        </button>
-      </form>
+      <Card className="mb-4">
+        <Card.Body>
+          <Form onSubmit={handleUserSubmit}>
+            <h2>User Info</h2>
+            <Form.Control 
+              type="text" 
+              placeholder="Enter GitHub username..." 
+              value={user} 
+              onChange={(e) => setUser(e.target.value)} 
+            />
+            <Button className="mt-3" variant="primary" type="submit" disabled={loading}>
+              {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
 
-      <form onSubmit={handleRepoSubmit}>
-        <h2>Repo Info</h2>
-        <input 
-          type="text" 
-          placeholder="Enter owner's username..." 
-          value={owner} 
-          onChange={(e) => setOwner(e.target.value)} 
-        />
-        <input 
-          type="text" 
-          placeholder="Enter repo name..." 
-          value={repo} 
-          onChange={(e) => setRepo(e.target.value)} 
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Submit'}
-        </button>
-      </form>
+      <Card className="mb-4">
+        <Card.Body>
+          <Form onSubmit={handleRepoSubmit}>
+            <h2>Repo Info</h2>
+            <Form.Control 
+              type="text" 
+              placeholder="Enter owner's username..." 
+              value={owner} 
+              onChange={(e) => setOwner(e.target.value)} 
+            />
+            <Form.Control 
+              className="mt-3"
+              type="text" 
+              placeholder="Enter repo name..." 
+              value={repo} 
+              onChange={(e) => setRepo(e.target.value)} 
+            />
+            <Button className="mt-3" variant="primary" type="submit" disabled={loading}>
+              {loading ? <Spinner animation="border" size="sm" /> : 'Submit'}
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
 
-      {result && <pre>{JSON.stringify(result, null, 2)}</pre>}
-    </div>
+      {result && (
+        <Card>
+          <Card.Body>
+            <pre>{JSON.stringify(result, null, 2)}</pre>
+          </Card.Body>
+        </Card>
+      )}
+    </Container>
   );
 }
 

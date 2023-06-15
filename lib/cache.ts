@@ -7,7 +7,7 @@ class StatCache<T> {
     private data: Record<string, CacheEntry<T>>;
     private maxAge: number;
 
-    constructor(maxAge = 3000000) {  // Default to 50 minutes
+    constructor(maxAge = 1000 * 60 * 60 * 24) {  // Default to 1 days
         this.data = {};
         this.maxAge = maxAge;
     }

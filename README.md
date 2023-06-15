@@ -85,6 +85,11 @@ Here are the same use cases expressed in more natural language:
 
     ![user-repo](public/user-repo.png)
 
+Share links:
+
+- https://chat.openai.com/share/23ec1986-fd70-4768-80a3-3beb53e27a4a
+- https://chat.openai.com/share/f96d1ba7-5275-44f1-bdda-7ea7294700a9
+
 ## Project setup
 
 1. Run the server

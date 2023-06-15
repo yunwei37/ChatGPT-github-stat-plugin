@@ -7,7 +7,7 @@ function getPercentiles(data: any[], percentiles: number[]): any[] {
   const sortedData = [...data].sort((a, b) => a.count - b.count);
 
   // Calculate indexes for each percentile
-  const indexes = percentiles.map(p => Math.floor((p / 100) * sortedData.length - 1));
+  const indexes = percentiles.map(p => Math.floor((p / 100) * (sortedData.length - 1)));
 
   // Get the corresponding data
   const percentileData = indexes.map(i => sortedData[i]);
@@ -21,31 +21,7 @@ function getPercentiles(data: any[], percentiles: number[]): any[] {
   return percentileData;
 }
 
-export default async function generateRepoStats(owner: string, repo: string) {
-  // get the owner's GitHub stats
-  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-  if (!response.ok) {
-    throw new Error(`GitHub API returned ${response.status} for user ${owner} repo ${repo}: ${response.json()}`);
-  }
-  const data = await response.json();
-  const readmeData = await getRepoReadme(owner, repo);
-
-  let stargazerDataFull;
-  const cacheStarData = repoCache.get(`${owner}/${repo}`);
-  if (cacheStarData) {
-    stargazerDataFull = cacheStarData;
-  } else {
-    stargazerDataFull = await StargazerLoader.loadStargazers(owner, repo);
-    if (!stargazerDataFull) {
-      throw new Error(`No stargazer data found for user ${owner} repo ${repo}`);
-    }
-    repoCache.set(`${owner}/${repo}`, stargazerDataFull);
-  }
-
-  // Get the 20%, 40%, 60%, 80% and 100% data
-  const stargazerData = getPercentiles(stargazerDataFull.stargazerData, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
-
-  // Create a new object with only the fields you need.
+function createResult(data: any) {
   return {
     name: data.name,
     full_name: data.full_name,
@@ -88,6 +64,46 @@ export default async function generateRepoStats(owner: string, repo: string) {
     default_branch: data.default_branch,
     network_count: data.network_count,
     subscribers_count: data.subscribers_count,
+  };
+}
+
+export default async function generateRepoStats(owner: string, repo: string) {
+  // get the owner's GitHub stats
+  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+  if (!response.ok) {
+    // if is 404, throw error
+    if (response.status === 404) {
+      throw new Error(`GitHub Repo not found for user ${owner} repo ${repo}`);
+    } else {
+      throw new Error(`GitHub API returned ${response.status} for user ${owner} repo ${repo}: ${response.json()}`);
+    }
+  }
+  const data = await response.json();
+  const readmeData = await getRepoReadme(owner, repo);
+  // init a empty object
+  let stargazerDataFull: any = {};
+  const cacheStarData = repoCache.get(`${owner}/${repo}`);
+  if (cacheStarData) {
+    stargazerDataFull = cacheStarData;
+  } else {
+    try {
+      stargazerDataFull = await StargazerLoader.loadStargazers(owner, repo);
+      if (!stargazerDataFull) {
+        throw new Error(`No stargazer data found for user ${owner} repo ${repo}`);
+      }
+      repoCache.set(`${owner}/${repo}`, stargazerDataFull);
+    } catch (e) {
+      console.error("stargazerDataFull error: " + (e as any).message);
+      return createResult(data);
+    }
+  }
+
+  // Get the 20%, 40%, 60%, 80% and 100% data
+  const stargazerData = getPercentiles(stargazerDataFull.stargazerData, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
+
+  // Create a new object with only the fields you need.
+  return {
+    ...createResult(data),
     stargazerData,
     readme: readmeData
   };

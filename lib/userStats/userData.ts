@@ -35,6 +35,10 @@ export default async function generateUserStats(owner: string): Promise<UserStat
     // get the owner's GitHub stats
     const response = await fetch(`https://api.github.com/users/${owner}`);
     if (!response.ok) {
+        // if is 404, throw error
+        if (response.status === 404) {
+            throw new Error(`GitHub User not found for user ${owner}`);
+        }
         throw new Error(`GitHub API returned ${response.status} for user ${owner}: ${JSON.stringify(await response.json())}`);
     }
     const data = await response.json();

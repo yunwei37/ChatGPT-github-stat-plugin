@@ -1,4 +1,4 @@
-import { fetchStats } from '../lib/statsFetcher';
+import { fetchStats } from '../lib/userStats/statsFetcher';
 
 describe('fetchStats', () => {
   it('returns an object with the expected properties', async () => {

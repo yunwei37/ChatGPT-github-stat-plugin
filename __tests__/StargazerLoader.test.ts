@@ -1,4 +1,4 @@
-import StargazerLoader from '../lib/StargazerLoader';
+import StargazerLoader from '../lib/repoStats/StargazerLoader';
 
 describe('loadStargazers', () => {
   it('returns stargazer data for a valid repo', async () => {

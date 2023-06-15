@@ -1,4 +1,4 @@
-import { getRepoReadme } from '../lib/getRepoReadme';
+import { getRepoReadme } from '../lib/repoStats/getRepoReadme';
 
 describe('getRepoReadme', () => {
   it('returns the README data for a valid repo', async () => {

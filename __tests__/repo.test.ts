@@ -1,4 +1,4 @@
-import generateRepoStat from '../lib/repoData';
+import generateRepoStat from '../lib/repoStats/repoData';
 
 describe('loadStargazers', () => {
   it('returns stargazer data for a valid repo', async () => {

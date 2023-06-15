@@ -2,12 +2,6 @@
 import GitHubDataLoader from "./GitHubDataLoader";
 import StarStatistics from "./StarStatistics";
 
-interface ForecastProps {
-  daysBackwards: number;
-  daysForward: number;
-  numValues: number;
-}
-
 interface StargazerData {
   date: string;
   count: number;

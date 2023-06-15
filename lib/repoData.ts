@@ -6,7 +6,7 @@ function getPercentiles(data: any[], percentiles: number[]): any[] {
   const sortedData = [...data].sort((a, b) => a.count - b.count);
 
   // Calculate indexes for each percentile
-  const indexes = percentiles.map(p => Math.floor((p / 100) * sortedData.length));
+  const indexes = percentiles.map(p => Math.floor((p / 100) * sortedData.length - 1));
 
   // Get the corresponding data
   const percentileData = indexes.map(i => sortedData[i]);
@@ -49,7 +49,6 @@ export default async function generateRepoStats(owner: string, repo: string) {
     html_url: data.html_url,
     description: data.description,
     fork: data.fork,
-    svn_url: data.svn_url,
     created_at: data.created_at,
     updated_at: data.updated_at,
     pushed_at: data.pushed_at,
@@ -72,14 +71,12 @@ export default async function generateRepoStats(owner: string, repo: string) {
     license: data.license,
     allow_forking: data.allow_forking,
     is_template: data.is_template,
-    web_commit_signoff_required: data.web_commit_signoff_required,
     topics: data.topics,
     visibility: data.visibility,
     forks: data.forks,
     open_issues: data.open_issues,
     watchers: data.watchers,
     default_branch: data.default_branch,
-    temp_clone_token: data.temp_clone_token,
     network_count: data.network_count,
     subscribers_count: data.subscribers_count,
     stargazerData,

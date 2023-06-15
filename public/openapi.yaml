@@ -170,9 +170,6 @@ components:
         fork:
           type: boolean
           description: Indicates if the repository is a fork.
-        svn_url:
-          type: string
-          description: The SVN URL of the repository.
         created_at:
           type: string
           format: date-time
@@ -253,9 +250,6 @@ components:
         is_template:
           type: boolean
           description: Indicates if the repository is a template.
-        web_commit_signoff_required:
-          type: boolean
-          description: Indicates if web commit signoff is required for the repository.
         topics:
           type: array
           items:
@@ -276,9 +270,6 @@ components:
         default_branch:
           type: string
           description: The default branch of the repository.
-        temp_clone_token:
-          type: string
-          description: The temporary clone token of the repository.
         network_count:
           type: integer
           description: The network count of the repository.

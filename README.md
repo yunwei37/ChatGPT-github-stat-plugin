@@ -3,27 +3,16 @@ ChatGPT plugin to help you get insight to Github Repos and Users
 
 ### Project setup
 
-1. Clone the repo, install depdendencies:
-
-```sh
-git clone git@github.com:dabit3/nextjs-chatgpt-starter.git
-
-cd nextjs-chatgpt-starter
-
-yarn # or npm install, pnpm
-```
-
-2. Run the server
+1. Run the server
 
 ```sh
 npm run build
-
 npm start
 
 # If you run this in dev mode, the memory may not persist well as the server will randomly restart sometimes
 ```
 
-3. Set up your GPT Plugin in the ChatGPT Plugin UI.
+2. Set up your GPT Plugin in the ChatGPT Plugin UI.
 
 When prompted for your website domain, type in 'https://chat-gpt-github-stat-plugin.vercel.app'
 

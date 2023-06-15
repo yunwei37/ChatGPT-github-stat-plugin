@@ -16,7 +16,7 @@ export async function getRepoReadme(owner: string, repo: string): Promise<string
     if (readmeResponse.ok) {
       readmeData = await readmeResponse.text();
     } else {
-      throw new Error("README not found on main or master branch.");
+      return "README not found on main or master branch.";
     }
   }
   /// Limit the README to 8KB

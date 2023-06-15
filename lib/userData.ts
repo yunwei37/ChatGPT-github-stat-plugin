@@ -25,6 +25,7 @@ interface UserStats {
         level: string;
         percentile: number;
     };
+    error: string;
 }
 
 import { fetchStats } from './statsFetcher';
@@ -38,26 +39,30 @@ export default async function generateUserStats(owner: string): Promise<UserStat
     const data = await response.json();
     // calculate the owner's more GitHub stats
     console.log(`Fetching stats for ${owner}...`);
-    const stats = await fetchStats(owner);
-    // if stats are string, the full data only contains the error message for stats
-    // merge the data and stats
-    let fullData: { [x: string]: any; };
-    if (typeof stats === "string") {
-        fullData = {
-            ...data,
-            stats: stats
-        };
-    } else {
+    let fullData = {
+        ...data,
+    };
+    try {
+        const stats = await fetchStats(owner);
+        // if stats are string, the full data only contains the error message for stats
+        // merge the data and stats
         fullData = {
             ...data,
             ...stats
         };
-    }
+        console.log(`Stats for ${owner} fetched!`);
 
+    } catch (error) {
+        console.log(`Error fetching stats for ${owner}: ${error}`);
+        fullData = {
+            ...data,
+            error: JSON.stringify(error)
+        };
+    }
     // Keys to be kept
     const keysToKeep: (keyof UserStats)[] = ["html_url", "type", "name", "company", "blog", "location", "email", "hireable", "bio",
         "twitter_username", "public_repos", "public_gists", "followers", "following", "created_at",
-        "updated_at", "totalPRs", "totalCommits", "totalIssues", "totalStars", "contributedTo", "rank", "mostStarredRepos"];
+        "updated_at", "totalPRs", "totalCommits", "totalIssues", "totalStars", "contributedTo", "rank", "mostStarredRepos", "error"];
 
     // Filter the full data to only include keys from the whitelist
     const filteredData: UserStats = Object.keys(fullData)

@@ -1,4 +1,4 @@
-import {calculateRank} from './calculateRank.js';
+import {calculateRank} from './calculateRank';
 
 const GRAPHQL_REPOS_FIELD = `
   repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}, after: $after) {
@@ -52,7 +52,13 @@ const GRAPHQL_STATS_QUERY = `
   }
 `;
 
-const fetcher = async (variables, token) => {
+interface Variables {
+  login: string;
+  first: number;
+  after: string | null;
+}
+
+const fetcher = async (variables: Variables, token: string) => {
   const query = !variables.after ? GRAPHQL_STATS_QUERY : GRAPHQL_REPOS_QUERY;
   const response = await fetch('https://api.github.com/graphql', {
     method: 'POST',
@@ -65,14 +71,17 @@ const fetcher = async (variables, token) => {
   return response.json();
 };
 
-const statsFetcher = async (username) => {
+const statsFetcher = async (username: string) => {
   let stats;
   let hasNextPage = true;
   let endCursor = null;
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.REACT_APP_GITHUB_ACCESS_TOKEN;
+  if (!token) {
+    throw Error("token is required");
+  }
 
   while (hasNextPage) {
-    const variables = { login: username, first: 100, after: endCursor };
+    const variables: Variables = { login: username, first: 100, after: endCursor };
     let res = await fetcher(variables, token);
 
     if (res.errors) {
@@ -88,7 +97,7 @@ const statsFetcher = async (username) => {
     }
 
     hasNextPage = repoNodes.length === repoNodes.filter(
-      (node) => node.stargazers.totalCount !== 0,
+      (node: { stargazers: { totalCount: number; }; }) => node.stargazers.totalCount !== 0,
     ).length && res.data.user.repositories.pageInfo.hasNextPage;
     endCursor = res.data.user.repositories.pageInfo.endCursor;
   }
@@ -96,10 +105,21 @@ const statsFetcher = async (username) => {
   return stats;
 };
 
-const fetchStats = async (username) => {
+interface Stats {
+  name: string;
+  totalPRs: number;
+  totalCommits: number;
+  totalIssues: number;
+  totalStars: number;
+  contributedTo: number;
+  rank: { level: string; percentile: number };
+  mostStarredRepos?: string[];
+}
+
+const fetchStats = async (username: string): Promise<Stats> => {
   if (!username) throw new Error("Username is required");
 
-  const stats = {
+  const stats: Stats = {
     name: "",
     totalPRs: 0,
     totalCommits: 0,
@@ -112,16 +132,17 @@ const fetchStats = async (username) => {
   let res = await statsFetcher(username);
   if (!res) {
     console.error("Failed to fetch stats");
-    return "Failed to fetch stats";
+    throw Error("Failed to fetch stats");
   }
   if (res.errors) {
     console.error(res.errors);
-    return "Failed to fetch stats: " + JSON.stringify(res.errors);
+    throw Error("Failed to fetch stats with errors: " + JSON.stringify(res.errors));
   }
 
   const user = res.data.user;
   if (!user) {
-    return "User not found: " + JSON.stringify(res);
+    console.error("Failed to fetch user");
+    throw Error("Failed to fetch user");
   }
 
   stats.name = user.name || user.login;
@@ -130,20 +151,17 @@ const fetchStats = async (username) => {
   stats.totalIssues = user.openIssues.totalCount + user.closedIssues.totalCount;
   stats.contributedTo = user.repositoriesContributedTo.totalCount;
 
-  //  {"name":"modern-cpp-template","stargazers":{"totalCount":0}}
-  stats.totalStars = user.repositories.nodes.reduce((prev, curr) => {
+  stats.totalStars = user.repositories.nodes.reduce((prev: any, curr: { stargazers: { totalCount: any; }; }) => {
     return prev + curr.stargazers.totalCount;
   }, 0);
 
-  // Get the five most starred repositories
   const mostStarredRepos = user.repositories.nodes
-  .sort((a, b) => b.stargazers.totalCount - a.stargazers.totalCount)
+  .sort((a: { stargazers: { totalCount: number; }; }, b: { stargazers: { totalCount: number; }; }) => b.stargazers.totalCount - a.stargazers.totalCount)
   .slice(0, 8)
-  .map(repo => repo.name);
+  .map((repo: { name: any; }) => repo.name);
 
   stats.mostStarredRepos = mostStarredRepos;
 
-  // Calculate rank here...
   stats.rank = calculateRank({
     all_commits: false,
     commits: stats.totalCommits,

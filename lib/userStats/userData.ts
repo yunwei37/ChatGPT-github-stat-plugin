@@ -1,3 +1,6 @@
+import { userCache } from '../cache';
+import { fetchStats } from './statsFetcher';
+
 interface UserStats {
     html_url: string;
     type: string;
@@ -27,9 +30,6 @@ interface UserStats {
     };
     error: string;
 }
-
-import { userCache } from './cache';
-import { fetchStats } from './statsFetcher';
 
 export default async function generateUserStats(owner: string): Promise<UserStats> {
     // get the owner's GitHub stats

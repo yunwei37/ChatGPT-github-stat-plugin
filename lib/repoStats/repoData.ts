@@ -1,5 +1,5 @@
 import StargazerLoader from './StargazerLoader';
-import { repoCache } from './cache';
+import { repoCache } from '../cache';
 import { getRepoReadme } from './getRepoReadme';
 
 function getPercentiles(data: any[], percentiles: number[]): any[] {

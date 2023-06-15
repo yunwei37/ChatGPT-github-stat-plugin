@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import generateUserStats from '../../../../lib/userData';
+import generateUserStats from '../../../../lib/userStats/userData';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { owner } = req.query;
   

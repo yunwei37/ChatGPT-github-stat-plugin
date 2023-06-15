@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import generateRepoStats from '../../../../lib/repoData';
+import generateRepoStats from '../../../../lib/repoStats/repoData';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { owner, repo } = req.query;
   

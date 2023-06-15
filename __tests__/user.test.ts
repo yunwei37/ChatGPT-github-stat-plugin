@@ -1,4 +1,4 @@
-import generateUserStats from '../lib/userData';
+import generateUserStats from '../lib/userStats/userData';
 
 describe('generateUserStats', () => {
   it('returns user stats for a valid owner', async () => {

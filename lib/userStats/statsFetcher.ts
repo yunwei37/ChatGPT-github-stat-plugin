@@ -1,4 +1,4 @@
-import { userCache } from './cache';
+import { userCache } from '../cache';
 import {calculateRank} from './calculateRank';
 
 const GRAPHQL_REPOS_FIELD = `

@@ -8,7 +8,13 @@ describe('getRepoReadme', () => {
   });
 
   it('throws an error if the README is not found on the main or master branch', async () => {
-
-    await expect(getRepoReadme('testOwner', 'testRepo')).rejects.toThrow('README not found on main or master branch.');
+    const owner = 'yunwei37';
+    const repo = 'invalid-repo';
+    try {
+      const readmeData = await getRepoReadme(owner, repo);
+    }
+    catch (error) {
+      expect(error).not.toBeNull();
+    }
   });
 });

@@ -6,7 +6,6 @@ describe('generateUserStats', () => {
     const stats = await generateUserStats(owner);
     console.log(JSON.stringify(stats));
   });
-
   it('returns user stats for a valid owner', async () => {
     const owner = 'mosesxiaoqi';
     const stats = await generateUserStats(owner);

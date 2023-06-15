@@ -1,8 +1,54 @@
-# chatgpt-github-stat-plugin
+# ChatGPT GitHub Stat Plugin
 
-ChatGPT plugin to help you get insight to Github Repos and Users
+[![test Next.js](https://github.com/yunwei37/ChatGPT-github-stat-plugin/actions/workflows/nextjs.yml/badge.svg)](https://github.com/yunwei37/ChatGPT-github-stat-plugin/actions/workflows/nextjs.yml)
 
-When prompted for your website domain, type in 'https://chat-gpt-github-stat-plugin.vercel.app'
+A powerful GPT plugin designed to provide insights into GitHub repositories and users. Whether you're a developer looking for detailed statistics about a repository, or a project manager comparing the growth of different repositories, this plugin has got you covered.
+
+## Features
+
+- **Repository Insights**: Get detailed information about a specific GitHub repository, including the number of stars, forks, and issues, the primary language used, license, and more.
+- **User Insights**: Learn about a specific GitHub user, such as the number of followers, repositories, contributions, total stars, pull requests, and more.
+- **Repository Comparison**: Compare two repositories by asking for information about both repositories. Visualize the comparison using the charts plugin.
+- **Growth Tracking**: Track the growth of a repository over time and visualize it using the charts plugin.
+- **User Activity Analysis**: Analyze the activity of a GitHub user over time.
+
+## Usage
+
+Here are some examples of how you can use the ChatGPT GitHub Stat Plugin:
+
+- **Getting information about a repository**
+
+  ```
+  Can you tell me the statistics for the https://github.com/Significant-Gravitas/Auto-GPT? Should I use it in my project? Tell me your analysis.
+  ```
+
+- **Getting information about a user**
+
+  ```
+  Can you show me how the activity of the GitHub user 'torvalds'? Tell me about him now.
+  ```
+
+- **Comparing two repositories**
+
+  ```
+  Can you compare the 'react' repository from 'facebook' and the 'angular.js' repository from 'angular' on GitHub? Use charts to compare them, and give me a report.
+  ```
+
+- **Tracking the growth of a repository**
+
+  ```
+  Can you read the star history and stats of https://github.com/eunomia-bpf/wasm-bpf, analyze the result, and build charts for the star history and the statistics?
+  ```
+
+- **Analyzing the activity of a user**
+
+  ```
+  Tell me about https://github.com/Himself65 and analyze his repo. What does the activity of him over time look like?
+  ```
+
+## Contributing
+
+We welcome contributions from the community. If you'd like to contribute, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
 
 ## Usage and Examples
 
@@ -81,15 +127,24 @@ Here are the same use cases expressed in more natural language:
 
 1. Run the server
 
-set the env `REACT_APP_GITHUB_ACCESS_TOKEN` as your github token and run the server:
+    set the env `REACT_APP_GITHUB_ACCESS_TOKEN` as your github token and run the server:
 
-```sh
-export REACT_APP_GITHUB_ACCESS_TOKEN=<your github token>
-npm run build
-npm start
-# If you run this in dev mode, the memory may not persist well as the server will randomly restart sometimes
-```
+    ```sh
+    export REACT_APP_GITHUB_ACCESS_TOKEN=<your github token>
+    npm run build
+    npm start
+    # If you run this in dev mode, the memory may not persist well as the server will randomly restart sometimes
+    ```
 
 2. Set up your GPT Plugin in the ChatGPT Plugin UI.
 
+    When prompted for your website domain, type in 'https://chat-gpt-github-stat-plugin.vercel.app'
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+If you encounter any issues or have questions, feel free to open an issue. We'll do our best to help.
 

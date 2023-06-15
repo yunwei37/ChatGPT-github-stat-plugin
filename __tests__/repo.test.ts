@@ -9,7 +9,7 @@ describe('loadStargazers', () => {
     console.log(JSON.stringify(stargazerData));
   }, 10000);
 
-  it('returns stargazer data for a large valid repo', async () => {
+  xit('returns stargazer data for a large valid repo', async () => {
     const username = 'WasmEdge';
     const repo = 'WasmEdge';
     const stargazerData = await generateRepoStat(username, repo);

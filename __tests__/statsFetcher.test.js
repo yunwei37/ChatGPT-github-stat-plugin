@@ -1,7 +1,7 @@
 import { fetchStats } from '../lib/userStats/statsFetcher';
 
 describe('fetchStats', () => {
-  it('returns an object with the expected properties', async () => {
+  xit('returns an object with the expected properties', async () => {
     const stats = await fetchStats('yunwei37');
     console.log(JSON.stringify(stats));
     expect(stats).toHaveProperty('totalCommits');

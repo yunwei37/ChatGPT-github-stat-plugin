@@ -37,13 +37,22 @@ export default async function generateUserStats(owner: string): Promise<UserStat
     }
     const data = await response.json();
     // calculate the owner's more GitHub stats
+    console.log(`Fetching stats for ${owner}...`);
     const stats = await fetchStats(owner);
-
+    // if stats are string, the full data only contains the error message for stats
     // merge the data and stats
-    const fullData = {
-        ...data,
-        ...stats
-    };
+    let fullData: { [x: string]: any; };
+    if (typeof stats === "string") {
+        fullData = {
+            ...data,
+            stats: stats
+        };
+    } else {
+        fullData = {
+            ...data,
+            ...stats
+        };
+    }
 
     // Keys to be kept
     const keysToKeep: (keyof UserStats)[] = ["html_url", "type", "name", "company", "blog", "location", "email", "hireable", "bio",

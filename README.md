@@ -1,8 +1,12 @@
-# ChatGPT GitHub Stat Plugin
+# ChatGPT Git OSS Stat Plugin
 
 [![test Next.js](https://github.com/yunwei37/ChatGPT-github-stat-plugin/actions/workflows/nextjs.yml/badge.svg)](https://github.com/yunwei37/ChatGPT-github-stat-plugin/actions/workflows/nextjs.yml)
 
 A powerful GPT plugin designed to provide insights into GitHub repositories and users. Whether you're a developer looking for detailed statistics about a repository, or a project manager comparing the growth of different repositories, this plugin has got you covered.
+
+![public/plugin-store.png](public/plugin-store.png)
+
+We're proud to announce that this plugin has been accepted by the official ChatGPT Plugin Store!
 
 ## Features
 

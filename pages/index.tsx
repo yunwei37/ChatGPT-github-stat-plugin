@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from 'react';
 import { Container, Form, Button, Spinner, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Analytics } from '@vercel/analytics/react';
 
 type ApiResponse = Record<string, unknown> | null;
 
@@ -101,6 +102,7 @@ function Home() {
           </Card.Body>
         </Card>
       )}
+    <Analytics />
     </Container>
   );
 }
